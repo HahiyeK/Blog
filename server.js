@@ -1,4 +1,5 @@
-require('dotenv').config();
+require('dotenv').config({ path: '.env', override: false });
+// Silently ignore missing .env file on production
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -341,9 +342,15 @@ app.delete('/api/projects/:id', authenticateToken, async (req, res) => {
     }
 });
 
-// Fallback route - serve index.html for SPA routing
+// Fallback route - serve index.html for SPA routing (only for non-API, non-static routes)
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
+    // Only serve index.html for actual page routes, not for static files
+    const ext = path.extname(req.path);
+    if (!ext || ext === '.html') {
+        res.sendFile(path.join(__dirname, 'index.html'));
+    } else {
+        res.status(404).send('Not found');
+    }
 });
 
 // Start Server
