@@ -1,0 +1,37 @@
+Design and develop a beautiful, interactive, and responsive Single Page Application (SPA) personal blog using only HTML, CSS, and vanilla JavaScript (no external frameworks or libraries). The blog should serve as a dynamic showcase of my journey—highlighting what I’ve done, what I’m currently working on, and my personal brand. 
+
+Core Features:
+Two Main Views (SPA Navigation):
+Public Profile & Content View:
+A visually engaging landing page that displays:
+My profile picture (with a clean, modern card layout)
+A short bio or introduction
+A responsive grid or timeline of my posts/content (photos, documents, updates)
+Each content item should display a preview (e.g., image thumbnail or document icon), title, date, and short description
+Admin Dashboard (Login Required):
+Accessible only after logging in with a simple username/password (hardcoded for now). This view allows me to:
+Upload new content (images or documents like PDFs)
+Write/edit post titles and descriptions
+Change my profile picture by uploading a new image
+Log out and return to the public view
+Beautiful & Cohesive Design:
+Use a soft, modern color palette (e.g., muted pastels, gradients, or a curated theme like indigo-teal with warm accents)
+Smooth transitions and subtle animations (e.g., fade-ins, hover effects)
+Fully responsive layout (mobile, tablet, desktop)
+Clean typography with good readability
+Card-based or masonry-style content layout for visual appeal
+Interactive Elements:
+Clicking a content item opens a modal with a larger view (image lightbox or document preview/download)
+Real-time preview of profile picture and content during upload
+Elegant loading states and user feedback (e.g., “Upload successful!”)
+Navigation between views without page reloads (true SPA behavior using DOM manipulation and browser history API)
+Technical Requirements:
+All data (profile info, posts, images) stored in localStorage for persistence (no backend required)
+Image uploads converted to base64 for storage in localStorage
+Simple login form with validation (e.g., username: “admin”, password: “blog123” – stored securely in code for demo purposes)
+Modular, well-commented JavaScript with clear separation of concerns (e.g., UI rendering, data handling, routing)
+Bonus (if feasible):
+Dark/light mode toggle
+“Currently Working On” badge or status indicator on the profile
+Filter or sort content by type (photo vs. document) or date
+The final result should feel like a premium portfolio-blog hybrid—minimal yet expressive, functional yet delightful—where visitors are drawn into my story, and I can easily update my journey anytime. 

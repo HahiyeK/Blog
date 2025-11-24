@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Personal Blog</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Public View -->
+        <div id="publicView" class="view">
+            <!-- Header -->
+            <header class="header">
+                <div class="header-content">
+                    <h1>My Journey</h1>
+                    <div class="header-buttons">
+                        <button id="loginBtn" class="btn btn-primary">Login</button>
+                        <button id="registerBtn" class="btn btn-secondary">Register</button>
+                        <button id="themToggle" class="btn btn-theme" title="Toggle dark mode">🌙</button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Hero Section -->
+            <section class="hero">
+                <div class="hero-content">
+                    <div class="profile-card">
+                        <div class="profile-image-container">
+                            <img id="profileImage" class="profile-image" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Crect fill='%23e0e7ff' width='200' height='200'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='48' fill='%236366f1'%3E👤%3C/text%3E%3C/svg%3E" alt="Profile">
+                        </div>
+                        <h2 id="profileName" class="profile-name">Your Name Here</h2>
+                        <p id="profileBio" class="profile-bio">Welcome to my personal blog. Share your story, showcase your work, and connect with others.</p>
+                        <div class="profile-status">
+                            <span id="statusBadge" class="status-badge">Exploring & Creating</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- About Section -->
+            <section class="about-section">
+                <div class="about-content">
+                    <h2>About Me</h2>
+                    <p id="aboutText" class="about-text">Welcome to my personal blog. I'm a passionate developer creating beautiful web applications and sharing my journey in tech.</p>
+                </div>
+            </section>
+
+            <!-- Skills Section -->
+            <section class="skills-section">
+                <div class="section-container">
+                    <h2>Skills & Technologies</h2>
+                    <div id="skillsGrid" class="skills-grid">
+                        <!-- Skills will be dynamically inserted here -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Projects Section -->
+            <section class="projects-section">
+                <div class="section-container">
+                    <h2>My Projects</h2>
+                    <div id="projectsGrid" class="projects-grid">
+                        <!-- Projects will be dynamically inserted here -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- Content Filter & Sort -->
+            <section class="content-controls">
+                <div class="controls-wrapper">
+                    <div class="filters">
+                        <label>Filter:</label>
+                        <button class="filter-btn active" data-filter="all">All</button>
+                        <button class="filter-btn" data-filter="image">Photos</button>
+                        <button class="filter-btn" data-filter="document">Documents</button>
+                    </div>
+                    <div class="sort">
+                        <label for="sortSelect">Sort:</label>
+                        <select id="sortSelect">
+                            <option value="newest">Newest First</option>
+                            <option value="oldest">Oldest First</option>
+                            <option value="title">By Title</option>
+                        </select>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Content Grid -->
+            <section class="content-section">
+                <div id="contentGrid" class="content-grid">
+                    <!-- Content items will be dynamically inserted here -->
+                </div>
+                <div id="emptyState" class="empty-state">
+                    <p>No content yet. Check back soon!</p>
+                </div>
+            </section>
+        </div>
+
+        <!-- Admin View -->
+        <div id="adminView" class="view hidden">
+            <!-- Admin Header -->
+            <header class="header">
+                <div class="header-content">
+                    <h1>Admin Dashboard</h1>
+                    <button id="logoutBtn" class="btn btn-danger">Logout</button>
+                    <button id="themToggle2" class="btn btn-theme" title="Toggle dark mode">🌙</button>
+                </div>
+            </header>
+
+            <!-- Admin Content -->
+            <div class="admin-container">
+                <!-- Profile Settings -->
+                <section class="admin-section">
+                    <h2>Profile Settings</h2>
+                    <div class="settings-grid">
+                        <div class="setting-group">
+                            <label>Profile Name:</label>
+                            <input type="text" id="nameInput" placeholder="Your name" class="input">
+                        </div>
+                        <div class="setting-group">
+                            <label>About Me:</label>
+                            <textarea id="aboutInput" placeholder="Tell your story..." class="textarea"></textarea>
+                        </div>
+                        <div class="setting-group">
+                            <label>Bio:</label>
+                            <textarea id="bioInput" placeholder="Write your bio..." class="textarea"></textarea>
+                        </div>
+                        <div class="setting-group">
+                            <label>Current Status:</label>
+                            <input type="text" id="statusInput" placeholder="e.g., Exploring & Creating" class="input">
+                        </div>
+                        <div class="setting-group">
+                            <label>GitHub Profile (URL):</label>
+                            <input type="url" id="githubInput" placeholder="https://github.com/username" class="input">
+                        </div>
+                        <div class="setting-group">
+                            <label>LinkedIn Profile (URL):</label>
+                            <input type="url" id="linkedinInput" placeholder="https://linkedin.com/in/username" class="input">
+                        </div>
+                        <div class="setting-group">
+                            <label>Twitter Profile (URL):</label>
+                            <input type="url" id="twitterInput" placeholder="https://twitter.com/username" class="input">
+                        </div>
+                        <div class="setting-group">
+                            <label>Email Contact:</label>
+                            <input type="email" id="emailContactInput" placeholder="your@email.com" class="input">
+                        </div>
+                        <div class="setting-group full-width">
+                             <label>Profile Picture:</label>
+                             <div class="profile-upload-area" id="profileUploadArea">
+                                 <input type="file" id="profilePicInput" accept="image/*" class="file-input" title="Upload profile picture">
+                                <div class="upload-placeholder">
+                                    <p>Click to upload profile picture</p>
+                                </div>
+                                <img id="profilePreview" class="preview-image" src="" alt="Preview">
+                            </div>
+                        </div>
+                        <button id="saveProfileBtn" class="btn btn-primary btn-block">Save Profile</button>
+                    </div>
+                </section>
+
+                <!-- Upload Content -->
+                <section class="admin-section">
+                    <h2>Upload Content</h2>
+                    <div class="upload-grid">
+                        <div class="upload-group">
+                            <label>Content Type:</label>
+                            <select id="contentTypeSelect" class="input" title="Select content type">
+                                <option value="image">Photo</option>
+                                <option value="document">Document</option>
+                            </select>
+                        </div>
+                        <div class="upload-group">
+                            <label>Title:</label>
+                            <input type="text" id="contentTitle" placeholder="Content title" class="input">
+                        </div>
+                        <div class="upload-group">
+                            <label>Description:</label>
+                            <textarea id="contentDescription" placeholder="Brief description..." class="textarea"></textarea>
+                        </div>
+                        <div class="upload-group">
+                            <label>File:</label>
+                            <div class="file-upload-area" id="uploadArea">
+                                <input type="file" id="contentFile" class="file-input" accept="image/*,.pdf,.doc,.docx" title="Upload content file">
+                                <p>Click to select or drag file here</p>
+                                <span id="fileName"></span>
+                            </div>
+                            <div class="preview-container">
+                                <img id="contentPreview" class="preview-image" alt="Preview">
+                                <div id="documentPreview" class="document-preview"></div>
+                            </div>
+                        </div>
+                        <button id="uploadBtn" class="btn btn-success btn-block">Upload Content</button>
+                    </div>
+                </section>
+
+                <!-- Manage Skills -->
+                <section class="admin-section">
+                    <h2>Manage Skills</h2>
+                    <div class="upload-grid">
+                        <div class="upload-group">
+                            <label>Skill Name:</label>
+                            <input type="text" id="skillName" placeholder="e.g., React, Node.js, MongoDB" class="input">
+                        </div>
+                        <div class="upload-group">
+                            <label>Category:</label>
+                            <select id="skillCategory" class="input" title="Select skill category">
+                                <option value="frontend">Frontend</option>
+                                <option value="backend">Backend</option>
+                                <option value="tools">Tools & DevOps</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="upload-group">
+                            <label>Proficiency Level:</label>
+                            <select id="skillLevel" class="input" title="Select proficiency level">
+                                <option value="beginner">Beginner</option>
+                                <option value="intermediate">Intermediate</option>
+                                <option value="advanced">Advanced</option>
+                            </select>
+                        </div>
+                        <button id="addSkillBtn" class="btn btn-success btn-block">Add Skill</button>
+                    </div>
+                    <div id="skillsList" class="content-list content-list-margin">
+                        <!-- Skills will be listed here -->
+                    </div>
+                </section>
+
+                <!-- Manage Projects -->
+                <section class="admin-section">
+                    <h2>Manage Projects</h2>
+                    <div class="upload-grid">
+                        <div class="upload-group">
+                            <label>Project Name:</label>
+                            <input type="text" id="projectName" placeholder="Project name" class="input">
+                        </div>
+                        <div class="upload-group">
+                            <label>Description:</label>
+                            <textarea id="projectDescription" placeholder="What does this project do?" class="textarea"></textarea>
+                        </div>
+                        <div class="upload-group">
+                            <label>Technologies (comma-separated):</label>
+                            <input type="text" id="projectTechs" placeholder="React, Node.js, MongoDB" class="input">
+                        </div>
+                        <div class="upload-group">
+                            <label>Live Link (URL):</label>
+                            <input type="url" id="projectLink" placeholder="https://example.com" class="input">
+                        </div>
+                        <div class="upload-group">
+                            <label>GitHub Link (URL):</label>
+                            <input type="url" id="projectGithub" placeholder="https://github.com/username/repo" class="input">
+                        </div>
+                        <div class="upload-group">
+                            <label>Project Image:</label>
+                            <div class="file-upload-area" id="projectImageArea">
+                                <input type="file" id="projectImage" accept="image/*" class="file-input" title="Upload project image">
+                                <p>Click to upload project screenshot</p>
+                                <img id="projectImagePreview" class="preview-image" alt="Preview">
+                            </div>
+                        </div>
+                        <button id="addProjectBtn" class="btn btn-success btn-block">Add Project</button>
+                    </div>
+                    <div id="projectsList" class="content-list content-list-margin">
+                        <!-- Projects will be listed here -->
+                    </div>
+                </section>
+
+                <!-- Manage Content -->
+                <section class="admin-section">
+                    <h2>Manage Content</h2>
+                    <div id="contentList" class="content-list">
+                        <!-- Content items will be listed here -->
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal hidden">
+        <div class="modal-content modal-auth">
+            <span class="modal-close">&times;</span>
+            <h2>Login to Your Blog</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label>Username:</label>
+                    <input type="text" id="loginUsername" placeholder="Enter your username" class="input" required>
+                </div>
+                <div class="form-group">
+                    <label>Password:</label>
+                    <input type="password" id="loginPassword" placeholder="Enter your password" class="input" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Login</button>
+                <p class="auth-link">Don't have an account? <button type="button" id="switchToRegister" class="btn-link">Register</button></p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="registerModal" class="modal hidden">
+        <div class="modal-content modal-auth">
+            <span class="modal-close">&times;</span>
+            <h2>Create Your Blog</h2>
+            <form id="registerForm">
+                <div class="form-group">
+                    <label>Username:</label>
+                    <input type="text" id="registerUsername" placeholder="Choose a username" class="input" required minlength="3">
+                </div>
+                <div class="form-group">
+                    <label>Email:</label>
+                    <input type="email" id="registerEmail" placeholder="Enter your email" class="input" required>
+                </div>
+                <div class="form-group">
+                    <label>Password:</label>
+                    <input type="password" id="registerPassword" placeholder="Create a password" class="input" required minlength="6">
+                </div>
+                <div class="form-group">
+                    <label>Confirm Password:</label>
+                    <input type="password" id="registerPasswordConfirm" placeholder="Confirm password" class="input" required minlength="6">
+                </div>
+                <div class="form-group">
+                    <label>Access Key:</label>
+                    <input type="text" id="registerAccessKey" placeholder="Enter admin access key" class="input" required>
+                     <small class="hint-small">Contact administrator for access key</small>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Create Account</button>
+                <p class="auth-link">Already have an account? <button type="button" id="switchToLogin" class="btn-link">Login</button></p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Content Modal (Lightbox) -->
+    <div id="contentModal" class="modal hidden">
+        <div class="modal-overlay"></div>
+        <div class="modal-content modal-large">
+            <span class="modal-close">&times;</span>
+            <div class="modal-body">
+                <img id="modalImage" class="modal-image" alt="">
+                <div id="modalDocument" class="modal-document"></div>
+            </div>
+            <div class="modal-info">
+                <h3 id="modalTitle"></h3>
+                <p id="modalDate"></p>
+                <p id="modalDescription"></p>
+                <a id="downloadLink" href="#" download class="btn btn-secondary modal-download-link">Download</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>
