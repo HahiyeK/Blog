@@ -4,18 +4,6 @@
     {
       "src": "server.js",
       "use": "@vercel/node"
-    },
-    {
-      "src": "index.html",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "styles.css",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "app.js",
-      "use": "@vercel/static"
     }
   ],
   "routes": [
@@ -24,14 +12,8 @@
       "dest": "server.js"
     },
     {
-      "src": "/(.*)",
-      "dest": "index.html"
+      "src": "/.*",
+      "dest": "server.js"
     }
-  ],
-  "env": {
-    "MONGODB_URI": "@mongodb_uri",
-    "JWT_SECRET": "@jwt_secret",
-    "ACCESS_KEY": "@access_key",
-    "SESSION_SECRET": "@session_secret"
-  }
+  ]
 }
