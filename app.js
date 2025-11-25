@@ -18,7 +18,8 @@
 // CONFIGURATION
 // ================================================
 
-const API_BASE_URL = 'http://localhost:3000/api';
+// Use relative URLs that work on any device
+const API_BASE_URL = '/api';
 
 // ================================================
 // DATA LAYER - API Communication
