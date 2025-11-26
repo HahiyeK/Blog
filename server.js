@@ -15,10 +15,28 @@ const Project = require('./models/Project');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb+srv://hahiyekoko09_db_user:z74erY1p5bLBJDeC@personal-blog.nciaftc.mongodb.net/?appName=personal-blog';
-const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key-change-this';
+
+// Environment variables - MongoDB URI is required, others have secure fallbacks
+const MONGODB_URI = process.env.MONGODB_URI;
+const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key-change-this-in-production';
 const ACCESS_KEY = process.env.ACCESS_KEY || '102258';
-const SESSION_SECRET = process.env.SESSION_SECRET || 'your-session-secret';
+const SESSION_SECRET = process.env.SESSION_SECRET || 'your-session-secret-change-this-in-production';
+
+// Validate required environment variables
+if (!MONGODB_URI) {
+    console.error('ERROR: MONGODB_URI environment variable is required');
+    console.error('Please set MONGODB_URI in your .env file or environment variables');
+}
+
+// Warn about using default secrets in production
+if (process.env.NODE_ENV === 'production') {
+    if (!process.env.JWT_SECRET) {
+        console.warn('WARNING: Using default JWT_SECRET in production is not secure!');
+    }
+    if (!process.env.SESSION_SECRET) {
+        console.warn('WARNING: Using default SESSION_SECRET in production is not secure!');
+    }
+}
 
 // Middleware
 app.use(cors());
@@ -120,10 +138,10 @@ app.post('/api/auth/register', async (req, res) => {
         res.status(201).json({
             message: 'User registered successfully',
             token,
-            user: { 
-                id: savedUser._id, 
-                username: savedUser.username, 
-                email: savedUser.email 
+            user: {
+                id: savedUser._id,
+                username: savedUser.username,
+                email: savedUser.email
             }
         });
     } catch (error) {
@@ -131,13 +149,13 @@ app.post('/api/auth/register', async (req, res) => {
         console.error('Error message:', error.message);
         console.error('Error name:', error.name);
         console.error('Full error:', error);
-        
+
         // Better error message for duplicate key errors
         if (error.code === 11000) {
             const field = Object.keys(error.keyPattern)[0];
             return res.status(400).json({ message: `${field} already exists` });
         }
-        
+
         res.status(500).json({ message: 'Error registering user: ' + error.message });
     }
 });
